@@ -1,0 +1,47 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    ext.kotlin_version = '1.2.0'
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.0.1'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven {
+            // All of React Native (JS, Android binaries) is installed from npm
+            url "$rootDir/node_modules/react-native/android"
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+ext {
+    retrofitVersion = '2.3.0'
+    rxandroidVersion = '1.2.1'
+    rxjavaVersion = '1.2.3'
+    converterGsonVersion = '2.2.0'
+    adapterRxjavaVersion = '2.2.0'
+    reactNativeVersion = '0.51.0'
+
+    retrofit = "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    rxandroid = "io.reactivex:rxandroid:$rxandroidVersion"
+    rxjava = "io.reactivex:rxjava:$rxjavaVersion"
+    converterGson = "com.squareup.retrofit2:converter-gson:$converterGsonVersion"
+    adapterRxjava = "com.squareup.retrofit2:adapter-rxjava:$adapterRxjavaVersion"
+    reactNative = "com.facebook.react:react-native:$reactNativeVersion"
+}
