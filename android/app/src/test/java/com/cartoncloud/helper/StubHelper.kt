@@ -16,10 +16,8 @@ object StubHelper {
                 "", "Error retrieving Weather Information"))
     }
     fun simulateOneObjectResponse() {
-        val stubInterceptor = StubInterceptor.instance
-        stubInterceptor.clearResponses()
-
-        stubInterceptor.addResponse(StubInterceptor.FakeResponse(".*location.*2017/04/20.*",
+        StubInterceptor.instance.clearResponses()
+        StubInterceptor.instance.addResponse(StubInterceptor.FakeResponse(".*location.*2017/04/20.*",
                 HttpURLConnection.HTTP_OK,
                 "[{\"id\":366945,\"weather_state_name\":\"Light Rain\"," +
                         "\"weather_state_abbr\":\"lr\",\"wind_direction_compass\":\"N\"," +

@@ -3,15 +3,12 @@ import {AppRegistry, StyleSheet, TouchableOpacity, Text, View} from 'react-nativ
 import { NativeModules } from 'react-native';
 const viewEvents = NativeModules.ViewModule;
 
-$today = new Date();
-$yesterday = new Date($today);
-$yesterday.setDate($today.getDate() - 1);
-
 class WeatherInformation extends React.Component {
  constructor(){
     super();
     this.state ={
       status: false,
+      error: false,
       weatherData: Object
     }
   }
@@ -19,40 +16,41 @@ class WeatherInformation extends React.Component {
    _renderWeatherInfo = () => {
                return (
                        this.state.status && (
-                             <View style={{
-                               flex: 1,
-                               flexDirection: 'column',
-                               justifyContent: 'center',
-                               alignItems: 'center',
-                               minHeight: 300,
-                               borderWidth: 1,
-                               borderStyle: 'solid',
-                               padding: 5,
-                               margin: 5
-                             }}>
-                                 <View style={{flex:1}}>
-                                   <Text style={styles.weatherInfo}>Date Result: {this.state.weatherData.applicable_date}</Text>
-                                </View>
-                                <View style={{flex:1}}>
-                                   <Text style={styles.weatherInfo}>Max Temp: {this.state.weatherData.max_temp} degrees</Text>
+                             <View style={styles.container}>
+                                 <View>
+                                   <Text style={styles.weatherInfo}>Weather Date: {this.state.weatherData.applicable_date}</Text>
+                                   <Text style={styles.weatherInfo}>Weather State Name: {this.state.weatherData.weather_state_name}</Text>
+                                   <Text style={styles.weatherInfo}>Min Temp: {this.state.weatherData.min_temp}</Text>
+                                   <Text style={styles.weatherInfo}>Max Temp: {this.state.weatherData.max_temp}</Text>
+                                   <Text style={styles.weatherInfo}>Wind Speed: {this.state.weatherData.wind_speed}</Text>
                                 </View>
                             </View>
                        )
                )
   }
 
+  _renderErrorView = () => {
+               return (
+                       this.state.error && (
+                             <View style={styles.container}>
+                                 <View>
+                                   <Text style={{height:50, margin: 20, color: "red"}}>Error getting Weather Information. Please try again later</Text>
+                                 </View>
+                            </View>
+                       )
+               )
+  }
   render() {
     return (
       <View style={styles.container}>
                {this._renderWeatherInfo()}
+               {this._renderErrorView()}
                <TouchableOpacity
                         style={styles.weatherButton}
                          onPress={()=> viewEvents.onPressGetWeather((msg) =>
-                         {this.setState({
-                                weatherData: msg,
-                                status: true
-                         })
-                          console.log("From console: " + Object.getOwnPropertyNames(msg))
+                                                    {msg.statusCode == 200 ?
+                                                       this.setState({weatherData: msg, status: true, error: false})
+                                                       : this.setState({error: true})
                          })}>
                         <Text style={styles.weatherTextButton}> Get Weather </Text>
                </TouchableOpacity>
@@ -68,14 +66,15 @@ var styles = StyleSheet.create({
   },
   weatherInfo: {
     fontSize: 20,
+    height:40,
     textAlign: 'center',
-    margin: 100,
     color: "#000000"
   },
   weatherButton : {
     alignItems: 'center',
     backgroundColor: '#176aef',
-    margin: 200,
+    height: 60,
+    margin: 10,
     padding: 15
   },
   weatherTextButton : {

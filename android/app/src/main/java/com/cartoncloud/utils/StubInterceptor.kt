@@ -59,6 +59,11 @@ class StubInterceptor private constructor() : Interceptor {
     fakeResponses.add(fakeResponse)
   }
 
+  fun addErrorResponse() {
+    this.addResponse(StubInterceptor.FakeResponse(".*location.*1100661.*",
+            -1,
+            "", "Error retrieving Weather Information"))
+  }
   fun clearResponses() {
     fakeResponses.clear()
   }

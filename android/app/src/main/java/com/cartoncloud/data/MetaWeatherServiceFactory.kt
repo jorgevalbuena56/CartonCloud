@@ -25,27 +25,29 @@ class MetaWeatherServiceFactory private constructor() {
   init {
     val builder = OkHttpClient.Builder()
     if (BuildConfig.USE_NETWORK_STUB) {
+        if (BuildConfig.USE_ERROR_NETWORK_RESPONSE) {
+            StubInterceptor.instance.clearResponses()
+            StubInterceptor.instance.addErrorResponse()
+        }
         builder.addInterceptor(StubInterceptor.instance)
     }
     okHttpClient = builder.build()
   }
 
-  fun createRetrofitService(): MetaWeatherService {
+  fun createRetrofitService(endpoint: String): MetaWeatherService {
     val gson = GsonBuilder()
             .registerTypeAdapter(WeatherInfo::class.java, WeatherGsonDeserializer())
             .create()
     val restAdapter = Retrofit.Builder()
             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
             .addConverterFactory(GsonConverterFactory.create(gson))
-            .baseUrl(SERVICE_ENDPOINT)
+            .baseUrl(endpoint)
             .client(okHttpClient)
             .build()
     return restAdapter.create(MetaWeatherService::class.java)
   }
 
   companion object {
-    private val SERVICE_ENDPOINT = "https://www.metaweather.com/"
-
     val instance: MetaWeatherServiceFactory = MetaWeatherServiceFactory()
   }
 }

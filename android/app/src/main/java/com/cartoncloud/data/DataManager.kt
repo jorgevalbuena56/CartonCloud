@@ -19,9 +19,9 @@ import rx.subscriptions.CompositeSubscription
 const val SERVICE_WOEID_BRISBANE = "1100661"
 
 object DataManager {
-
-  private val mWeatherService: MetaWeatherService = MetaWeatherServiceFactory.instance.createRetrofitService()
-  private val compositeSubscription = CompositeSubscription()
+  private val SERVICE_ENDPOINT = "https://www.metaweather.com/"
+  private val mWeatherService: MetaWeatherService =
+          MetaWeatherServiceFactory.instance.createRetrofitService(SERVICE_ENDPOINT)
   /**
    * Method used to make and asynchronous call to the backend requesting the weather information
    * It uses a callback to notify the UI about the answer.

@@ -12,7 +12,7 @@ android {
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "com.cartoncloud.TestAndroidJUnitRunner"
+        testInstrumentationRunner "io.appflate.restmock.android.RESTMockTestRunner"
         ndk {
             abiFilters "armeabi-v7a", "x86"
         }
@@ -24,14 +24,17 @@ android {
         stub {
             dimension "endpoint"
             buildConfigField "boolean", "USE_NETWORK_STUB", "true"
+            buildConfigField "boolean", "USE_ERROR_NETWORK_RESPONSE", "true"
         }
         development {
             dimension "endpoint"
-            buildConfigField "boolean", "USE_NETWORK_STUB", "false"
+            buildConfigField "boolean", "USE_NETWORK_STUB", "true"
+            buildConfigField "boolean", "USE_ERROR_NETWORK_RESPONSE", "false"
         }
         production {
-            dimension "endpoint"
+           dimension "endpoint"
            buildConfigField "boolean", "USE_NETWORK_STUB", "false"
+           buildConfigField "boolean", "USE_ERROR_NETWORK_RESPONSE", "false"
         }
     }
     buildTypes {
@@ -56,6 +59,8 @@ dependencies {
     compile rootProject.ext.rxandroid
     compile rootProject.ext.rxjava
     testCompile 'junit:junit:4.12'
-//    testCompile 'org.mockito:mockito-core:2.7.22'
+    //testCompile 'org.mockito:mockito-core:2.7.22'
+    //testCompile 'com.squareup.okhttp3:mockwebserver:3.2.0'
+    testCompile 'com.github.andrzejchm.RESTMock:android:0.2.2'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
 }
