@@ -1,4 +1,4 @@
-package com.cartoncloud
+package com.cartoncloud.react
 
 import android.view.View
 import com.facebook.react.ReactPackage

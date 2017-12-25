@@ -7,7 +7,10 @@ import java.net.HttpURLConnection.HTTP_OK
 import java.util.*
 import java.util.regex.Pattern
 
-class StubInterceptor private constructor() : Interceptor {
+/**
+ * Interceptor class used to mock different responses to the UI
+ */
+object StubInterceptor : Interceptor {
 
   private val fakeResponses = ArrayList<FakeResponse>()
 
@@ -55,7 +58,7 @@ class StubInterceptor private constructor() : Interceptor {
 
   }
 
-  fun addResponse(fakeResponse: FakeResponse) {
+  private fun addResponse(fakeResponse: FakeResponse) {
     fakeResponses.add(fakeResponse)
   }
 
@@ -85,8 +88,4 @@ class StubInterceptor private constructor() : Interceptor {
   }
 
   class FakeResponse(val pattern: String, val statusCode: Int, val response: String, val errorMessage: String)
-
-  companion object {
-    val instance: StubInterceptor = StubInterceptor()
-  }
 }

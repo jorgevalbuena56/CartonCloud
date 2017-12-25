@@ -13,41 +13,33 @@ import retrofit2.converter.gson.GsonConverterFactory
 /**
  * Creates the retrofit adapter used to interact with the backend
  */
+const val SERVICE_ENDPOINT = "https://www.metaweather.com/"
 
-class MetaWeatherServiceFactory private constructor() {
+object MetaWeatherServiceFactory {
 
-  /**
-   * Returns the http client used in the tests unit
-   * @return
-   */
-  val okHttpClient: OkHttpClient
+  private val okHttpClient: OkHttpClient
 
   init {
     val builder = OkHttpClient.Builder()
     if (BuildConfig.USE_NETWORK_STUB) {
         if (BuildConfig.USE_ERROR_NETWORK_RESPONSE) {
-            StubInterceptor.instance.clearResponses()
-            StubInterceptor.instance.addErrorResponse()
+            StubInterceptor.clearResponses()
+            StubInterceptor.addErrorResponse()
         }
-        builder.addInterceptor(StubInterceptor.instance)
+        builder.addInterceptor(StubInterceptor)
     }
     okHttpClient = builder.build()
   }
 
-  fun createRetrofitService(endpoint: String): MetaWeatherService {
+  fun createRetrofitService(): MetaWeatherService {
     val gson = GsonBuilder()
             .registerTypeAdapter(WeatherInfo::class.java, WeatherGsonDeserializer())
             .create()
-    val restAdapter = Retrofit.Builder()
-            .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .baseUrl(endpoint)
-            .client(okHttpClient)
-            .build()
-    return restAdapter.create(MetaWeatherService::class.java)
-  }
-
-  companion object {
-    val instance: MetaWeatherServiceFactory = MetaWeatherServiceFactory()
+    return Retrofit.Builder().apply {
+           addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+           addConverterFactory(GsonConverterFactory.create(gson))
+           baseUrl(SERVICE_ENDPOINT)
+           client(okHttpClient)
+    }.build().create(MetaWeatherService::class.java)
   }
 }

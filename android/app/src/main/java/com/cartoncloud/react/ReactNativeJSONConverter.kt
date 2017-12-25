@@ -1,4 +1,4 @@
-package com.cartoncloud.utils
+package com.cartoncloud.react
 
 import com.facebook.react.bridge.WritableArray
 import com.facebook.react.bridge.WritableMap
@@ -30,7 +30,7 @@ object ReactNativeJSONConverter {
         return map
     }
 
-    fun convertJsonToArray(jsonArray: JSONArray): WritableArray {
+    private fun convertJsonToArray(jsonArray: JSONArray): WritableArray {
         val array = WritableNativeArray()
 
         (0 until jsonArray.length())

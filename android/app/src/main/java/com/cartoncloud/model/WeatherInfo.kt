@@ -9,47 +9,89 @@ import com.google.gson.annotations.SerializedName
 class WeatherInfo {
     @SerializedName("id")
     @Expose
-    val id: Int? = null
+    var id: Int? = null
     @SerializedName("weather_state_name")
     @Expose
-    val weatherStateName: String? = null
+    var weatherStateName: String? = null
     @SerializedName("weather_state_abbr")
     @Expose
-    val weatherStateAbbr: String? = null
+    var weatherStateAbbr: String? = null
     @SerializedName("wind_direction_compass")
     @Expose
-    val windDirectionCompass: String? = null
+    var windDirectionCompass: String? = null
     @SerializedName("created")
     @Expose
-    val created: String? = null
+    var created: String? = null
     @SerializedName("applicable_date")
     @Expose
-    val applicableDate: String? = null
+    var applicableDate: String? = null
     @SerializedName("min_temp")
     @Expose
-    val minTemp: Any? = null
+    var minTemp: Any? = null
     @SerializedName("max_temp")
     @Expose
-    val maxTemp: Any? = null
+    var maxTemp: Any? = null
     @SerializedName("the_temp")
     @Expose
-    val theTemp: Double? = null
+    var theTemp: Double? = null
     @SerializedName("wind_speed")
     @Expose
-    val windSpeed: Double? = null
+    var windSpeed: Double? = null
     @SerializedName("wind_direction")
     @Expose
-    val windDirection: Double? = null
+    var windDirection: Double? = null
     @SerializedName("air_pressure")
     @Expose
-    val airPressure: Double? = null
+    var airPressure: Double? = null
     @SerializedName("humidity")
     @Expose
-    val humidity: Int? = null
+    var humidity: Int? = null
     @SerializedName("visibility")
     @Expose
-    val visibility: Double? = null
+    var visibility: Double? = null
     @SerializedName("predictability")
     @Expose
-    val predictability: Int? = null
+    var predictability: Int? = null
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is WeatherInfo) return false
+
+        if (id != other.id) return false
+        if (weatherStateName != other.weatherStateName) return false
+        if (weatherStateAbbr != other.weatherStateAbbr) return false
+        if (windDirectionCompass != other.windDirectionCompass) return false
+        if (created != other.created) return false
+        if (applicableDate != other.applicableDate) return false
+        if (minTemp != other.minTemp) return false
+        if (maxTemp != other.maxTemp) return false
+        if (theTemp != other.theTemp) return false
+        if (windSpeed != other.windSpeed) return false
+        if (windDirection != other.windDirection) return false
+        if (airPressure != other.airPressure) return false
+        if (humidity != other.humidity) return false
+        if (visibility != other.visibility) return false
+        if (predictability != other.predictability) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        var result = id ?: 0
+        result = 31 * result + (weatherStateName?.hashCode() ?: 0)
+        result = 31 * result + (weatherStateAbbr?.hashCode() ?: 0)
+        result = 31 * result + (windDirectionCompass?.hashCode() ?: 0)
+        result = 31 * result + (created?.hashCode() ?: 0)
+        result = 31 * result + (applicableDate?.hashCode() ?: 0)
+        result = 31 * result + (minTemp?.hashCode() ?: 0)
+        result = 31 * result + (maxTemp?.hashCode() ?: 0)
+        result = 31 * result + (theTemp?.hashCode() ?: 0)
+        result = 31 * result + (windSpeed?.hashCode() ?: 0)
+        result = 31 * result + (windDirection?.hashCode() ?: 0)
+        result = 31 * result + (airPressure?.hashCode() ?: 0)
+        result = 31 * result + (humidity ?: 0)
+        result = 31 * result + (visibility?.hashCode() ?: 0)
+        result = 31 * result + (predictability ?: 0)
+        return result
+    }
 }

@@ -1,7 +1,7 @@
 package com.cartoncloud.application
 
 import android.app.Application
-import com.cartoncloud.ViewPackager
+import com.cartoncloud.react.ViewPackager
 import com.facebook.react.BuildConfig
 import com.facebook.react.ReactApplication
 import com.facebook.react.ReactNativeHost

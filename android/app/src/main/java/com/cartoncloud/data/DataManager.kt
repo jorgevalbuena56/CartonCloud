@@ -2,7 +2,7 @@ package com.cartoncloud.data
 
 import android.util.Log
 import com.cartoncloud.model.WeatherInfo
-import com.cartoncloud.utils.ReactNativeJSONConverter
+import com.cartoncloud.react.ReactNativeJSONConverter
 import com.facebook.react.bridge.Callback
 import com.facebook.react.bridge.WritableNativeMap
 import com.google.gson.Gson
@@ -10,7 +10,6 @@ import org.json.JSONObject
 import rx.Subscriber
 import rx.android.schedulers.AndroidSchedulers
 import rx.schedulers.Schedulers
-import rx.subscriptions.CompositeSubscription
 
 
 /**
@@ -19,9 +18,8 @@ import rx.subscriptions.CompositeSubscription
 const val SERVICE_WOEID_BRISBANE = "1100661"
 
 object DataManager {
-  private val SERVICE_ENDPOINT = "https://www.metaweather.com/"
   private val mWeatherService: MetaWeatherService =
-          MetaWeatherServiceFactory.instance.createRetrofitService(SERVICE_ENDPOINT)
+          MetaWeatherServiceFactory.createRetrofitService()
   /**
    * Method used to make and asynchronous call to the backend requesting the weather information
    * It uses a callback to notify the UI about the answer.

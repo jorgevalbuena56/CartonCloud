@@ -1,4 +1,4 @@
-package com.cartoncloud
+package com.cartoncloud.react
 
 import com.cartoncloud.data.DataManager
 import com.facebook.react.bridge.Callback

@@ -1,8 +1,8 @@
-package com.cartoncloud.utils
+package com.cartoncloud.react
 
 import android.app.Application
 import com.cartoncloud.BuildConfig
-import com.cartoncloud.ViewPackager
+import com.cartoncloud.utils.SingletonHolder
 import com.facebook.react.ReactInstanceManager
 import com.facebook.react.common.LifecycleState
 import com.facebook.react.shell.MainReactPackage

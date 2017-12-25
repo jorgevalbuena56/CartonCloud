@@ -9,7 +9,7 @@ import android.provider.Settings
 import android.support.v7.app.AppCompatActivity
 import android.view.KeyEvent
 import android.widget.Toast
-import com.cartoncloud.utils.ReactInstantManagerHolder
+import com.cartoncloud.react.ReactInstantManagerHolder
 import com.facebook.react.ReactRootView
 import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler
 
